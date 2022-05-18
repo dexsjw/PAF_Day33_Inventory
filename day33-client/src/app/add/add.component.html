@@ -1,0 +1,53 @@
+<h2>Purchase Order Form</h2>
+<form [formGroup]="poForm" (ngSubmit)="placeOrder()">
+    <section>
+        <div>
+            <label for="name">Name:</label>
+        </div>
+        <div>
+            <input type="text" id="name" formControlName="name">
+        </div>
+        <div>
+            <label for="email">Email:</label>
+        </div>
+        <div>
+            <input type="email" id="email" formControlName="email">
+        </div>
+    </section>
+    <section>
+        <div>
+            <span>
+                <label for="prodName">Product Name:</label>
+            </span>
+            <span>
+                <label for="quantity">Quantity:</label>
+            </span>
+            <span>
+                <label for="unitPrice">Unit Price:</label>
+            </span>
+            <span>
+                <button type="button" (click)="addLi()"> + </button>
+            </span>
+        </div>
+        <div formArrayName="lineItems">
+            <div *ngFor="let li of liArr.controls; let i=index"  [formGroupName]="i">
+                <span>
+                    <input type="text" id="prodName" formControlName="prodName">
+                </span>
+                <span>
+                    <input type="number" id="quantity" formControlName="quantity">
+                </span>
+                <span>
+                    <input type="number" id="unitPrice" formControlName="unitPrice">
+                </span>
+                <span>
+                    <button type="button" (click)="deleteLi(i)"> X </button>
+                </span>
+            </div>
+        </div>
+    </section>
+    <section>
+        <button type="button" [routerLink]="['/']">Back</button>
+        <button type="submit" [disabled]="poForm.invalid">Place Order</button>
+    </section>
+</form>
